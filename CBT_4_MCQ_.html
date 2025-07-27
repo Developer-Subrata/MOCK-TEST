@@ -1,10 +1,58 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microsoft Office 2007 Quiz</title>
     <style>
+        /* Welcome Message Styles */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        
+        .welcome-message {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #3498db, 0 0 20px #3498db;
+            animation: glow 2s infinite alternate;
+        }
+        
+        .welcome-submessage {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #f1c40f;
+            animation: fadeIn 2s;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #3498db, 0 0 20px #3498db;
+            }
+            to {
+                text-shadow: 0 0 15px #3498db, 0 0 30px #3498db, 0 0 40px #3498db;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Original Quiz Styles */
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
@@ -13,10 +61,12 @@
             padding: 20px;
             background-color: #f5f5f5;
         }
+        
         h1, h2 {
             color: #2c3e50;
             text-align: center;
         }
+        
         .quiz-section {
             background-color: white;
             padding: 20px;
@@ -24,6 +74,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        
         .question {
             margin-bottom: 20px;
             padding: 15px;
@@ -31,16 +82,20 @@
             border-left: 4px solid #3498db;
             border-radius: 4px;
         }
+        
         .question-text {
             font-weight: bold;
             margin-bottom: 10px;
         }
+        
         .options {
             margin-left: 20px;
         }
+        
         .option {
             margin-bottom: 8px;
         }
+        
         button {
             display: block;
             margin: 20px auto;
@@ -52,9 +107,11 @@
             cursor: pointer;
             font-size: 16px;
         }
+        
         button:hover {
             background-color: #2980b9;
         }
+        
         .result {
             text-align: center;
             font-weight: bold;
@@ -62,17 +119,21 @@
             padding: 10px;
             border-radius: 4px;
         }
+        
         .correct {
             background-color: #d4edda;
             color: #155724;
         }
+        
         .incorrect {
             background-color: #f8d7da;
             color: #721c24;
         }
+        
         .hidden {
             display: none;
         }
+        
         .language {
             font-style: italic;
             color: #7f8c8d;
@@ -81,24 +142,34 @@
     </style>
 </head>
 <body>
-    <h1>Microsoft Office 2007 Quiz</h1>
+    <!-- Welcome Overlay -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <!-- <div class="welcome-submessage">Designed By Subrata</div> -->
+        <div class="welcome-submessage">PowerPoint & Access</div>
+        <div class="welcome-message">WelCome To Mock-Test Portal</div>
+        <div class="welcome-submessage">Best Of Luck Go Ahead</div>
+    </div>
     
-    <div class="quiz-section">
-        <h2>Microsoft PowerPoint 2007 (15 Questions)</h2>
+    <!-- Quiz Content (hidden initially) -->
+    <div id="quizContent" style="display:none;">
+        <h1>Microsoft Office 2007 Quiz</h1>
         
-        <div class="question" id="q1">
-            <div class="question-text">1. What is the default file extension of PowerPoint 2007 files?</div>
-            <div class="language">PowerPoint 2007-এ ডিফল্ট ফাইল এক্সটেনশন কী?</div>
-            <div class="options">
-                <div class="option"><input type="radio" name="q1" value="A"> A) .ppt</div>
-                <div class="option"><input type="radio" name="q1" value="B"> B) .pptx</div>
-                <div class="option"><input type="radio" name="q1" value="C"> C) .pps</div>
-                <div class="option"><input type="radio" name="q1" value="D"> D) .docx</div>
+        <div class="quiz-section">
+            <h2>Microsoft PowerPoint 2007 (15 Questions)</h2>
+            
+            <div class="question" id="q1">
+                <div class="question-text">1. What is the default file extension of PowerPoint 2007 files?</div>
+                <div class="language">PowerPoint 2007-এ ডিফল্ট ফাইল এক্সটেনশন কী?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q1" value="A"> A) .ppt</div>
+                    <div class="option"><input type="radio" name="q1" value="B"> B) .pptx</div>
+                    <div class="option"><input type="radio" name="q1" value="C"> C) .pps</div>
+                    <div class="option"><input type="radio" name="q1" value="D"> D) .docx</div>
+                </div>
+                <div class="result hidden"></div>
             </div>
-            <div class="result hidden"></div>
-        </div>
-        
-        <div class="question" id="q2">
+            
+            <div class="question" id="q2">
             <div class="question-text">2. Which key is used to start a slideshow from the beginning?</div>
             <div class="language">স্লাইডশো শুরু করতে কোন কী ব্যবহৃত হয়?</div>
             <div class="options">
@@ -692,50 +763,59 @@
     </div>
     
     <button id="submit-btn">Submit Quiz</button>
+    </div>
     
     <script>
-        // Correct answers
-        const answers = {
-            q1: "B", q2: "B", q3: "B", q4: "C", q5: "A",
-            q6: "D", q7: "B", q8: "A", q9: "B", q10: "C",
-            q11: "D", q12: "A", q13: "B", q14: "B", q15: "C",
-            q16: "B", q17: "D", q18: "C", q19: "C", q20: "C",
-            q21: "A", q22: "D", q23: "A", q24: "B", q25: "A",
-            q26: "B", q27: "D", q28: "D", q29: "A", q30: "B",
-            q31: "B", q32: "C", q33: "C", q34: "A", q35: "B",
-            q36: "A", q37: "B", q38: "B", q39: "C", q40: "B",
-            q41: "B", q42: "B", q43: "A", q44: "C", q45: "C",
-            q46: "B", q47: "B", q48: "C", q49: "C", q50: "B"
-        };
-        
-        document.getElementById("submit-btn").addEventListener("click", function() {
-            let score = 0;
+        // Show welcome message first, then quiz after 3 seconds
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('welcomeOverlay').style.display = 'none';
+                document.getElementById('quizContent').style.display = 'block';
+            }, 3000); // 3 seconds delay
             
-            // Check each question
-            for (let i = 1; i <= 50; i++) {
-                const questionId = "q" + i;
-                const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
-                const resultDiv = document.querySelector(`#${questionId} .result`);
+            // Correct answers
+            const answers = {
+                q1: "B", q2: "B", q3: "B", q4: "C", q5: "A",
+                q6: "D", q7: "B", q8: "A", q9: "B", q10: "C",
+                q11: "D", q12: "A", q13: "B", q14: "B", q15: "C",
+                q16: "B", q17: "D", q18: "C", q19: "C", q20: "C",
+                q21: "A", q22: "D", q23: "A", q24: "B", q25: "A",
+                q26: "B", q27: "D", q28: "D", q29: "A", q30: "B",
+                q31: "B", q32: "C", q33: "C", q34: "A", q35: "B",
+                q36: "A", q37: "B", q38: "B", q39: "C", q40: "B",
+                q41: "B", q42: "B", q43: "A", q44: "C", q45: "C",
+                q46: "B", q47: "B", q48: "C", q49: "C", q50: "B"
+            };
+            
+            document.getElementById("submit-btn").addEventListener("click", function() {
+                let score = 0;
                 
-                if (selectedOption) {
-                    if (selectedOption.value === answers[questionId]) {
-                        score++;
-                        resultDiv.textContent = "Correct!";
-                        resultDiv.className = "result correct";
-                    } else {
-                        resultDiv.textContent = `Incorrect! The correct answer is ${answers[questionId]}`;
-                        resultDiv.className = "result incorrect";
+                // Check each question
+                for (let i = 1; i <= 50; i++) {
+                    const questionId = "q" + i;
+                    const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+                    const resultDiv = document.querySelector(`#${questionId} .result`);
+                    
+                    if (selectedOption) {
+                        if (selectedOption.value === answers[questionId]) {
+                            score++;
+                            resultDiv.textContent = "Correct!";
+                            resultDiv.className = "result correct";
+                        } else {
+                            resultDiv.textContent = `Incorrect! The correct answer is ${answers[questionId]}`;
+                            resultDiv.className = "result incorrect";
+                        }
+                        resultDiv.classList.remove("hidden");
                     }
-                    resultDiv.classList.remove("hidden");
                 }
-            }
-            
-            // Calculate percentage
-            const percentage = (score / 50) * 100;
-            
-            // Show final score
-            alert(`You scored ${score} out of 50 (${percentage}%)`);
-        });
+                
+                // Calculate percentage
+                const percentage = (score / 50) * 100;
+                
+                // Show final score
+                alert(`You scored ${score} out of 50 (${percentage}%)`);
+            });
+        };
     </script>
 </body>
 </html>
