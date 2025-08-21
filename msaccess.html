@@ -1,0 +1,821 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Office 2007 Quiz</title>
+    <style>
+        /* Welcome Message Styles */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        
+        .welcome-message {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #3498db, 0 0 20px #3498db;
+            animation: glow 2s infinite alternate;
+        }
+        
+        .welcome-submessage {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #f1c40f;
+            animation: fadeIn 2s;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #3498db, 0 0 20px #3498db;
+            }
+            to {
+                text-shadow: 0 0 15px #3498db, 0 0 30px #3498db, 0 0 40px #3498db;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Original Quiz Styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .quiz-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+        }
+        
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .options {
+            margin-left: 20px;
+        }
+        
+        .option {
+            margin-bottom: 8px;
+        }
+        
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .language {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Overlay -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <!-- <div class="welcome-submessage">Designed By Subrata</div> -->
+        <div class="welcome-submessage">PowerPoint & Access</div>
+        <div class="welcome-message">WelCome To Mock-Test Portal</div>
+        <div class="welcome-submessage">Best Of Luck Go Ahead</div>
+    </div>
+    
+    <!-- Quiz Content (hidden initially) -->
+    <div id="quizContent" style="display:none;">
+        <h1>Microsoft Office 2007 Quiz</h1>
+        
+        <div class="quiz-section">
+            <h2>Microsoft PowerPoint 2007 (15 Questions)</h2>
+            
+            <div class="question" id="q1">
+                <div class="question-text">1. What is the default file extension of PowerPoint 2007 files?</div>
+                <div class="language">PowerPoint 2007-এ ডিফল্ট ফাইল এক্সটেনশন কী?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q1" value="A"> A) .ppt</div>
+                    <div class="option"><input type="radio" name="q1" value="B"> B) .pptx</div>
+                    <div class="option"><input type="radio" name="q1" value="C"> C) .pps</div>
+                    <div class="option"><input type="radio" name="q1" value="D"> D) .docx</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q2">
+            <div class="question-text">2. Which key is used to start a slideshow from the beginning?</div>
+            <div class="language">স্লাইডশো শুরু করতে কোন কী ব্যবহৃত হয়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q2" value="A"> A) F2</div>
+                <div class="option"><input type="radio" name="q2" value="B"> B) F5</div>
+                <div class="option"><input type="radio" name="q2" value="C"> C) F7</div>
+                <div class="option"><input type="radio" name="q2" value="D"> D) F9</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q3">
+            <div class="question-text">3. What is a slide?</div>
+            <div class="language">স্লাইড কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q3" value="A"> A) A toolbar</div>
+                <div class="option"><input type="radio" name="q3" value="B"> B) A single page in a presentation</div>
+                <div class="option"><input type="radio" name="q3" value="C"> C) A transition effect</div>
+                <div class="option"><input type="radio" name="q3" value="D"> D) A background image</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q4">
+            <div class="question-text">4. Where can you find the option to add custom animation?</div>
+            <div class="language">কাস্টম অ্যানিমেশন যোগ করার অপশন কোথায় পাওয়া যায়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q4" value="A"> A) Review tab</div>
+                <div class="option"><input type="radio" name="q4" value="B"> B) Design tab</div>
+                <div class="option"><input type="radio" name="q4" value="C"> C) Animations tab</div>
+                <div class="option"><input type="radio" name="q4" value="D"> D) Insert tab</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q5">
+            <div class="question-text">5. Where can you find themes for your presentation?</div>
+            <div class="language">আপনার প্রেজেন্টেশনের জন্য থিম কোথায় পাওয়া যায়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q5" value="A"> A) Design tab</div>
+                <div class="option"><input type="radio" name="q5" value="B"> B) View tab</div>
+                <div class="option"><input type="radio" name="q5" value="C"> C) Insert tab</div>
+                <div class="option"><input type="radio" name="q5" value="D"> D) Slide Show tab</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q6">
+            <div class="question-text">6. What type of content can you insert into PowerPoint 2007?</div>
+            <div class="language">PowerPoint 2007-এ আপনি কোন ধরনের কন্টেন্ট যোগ করতে পারেন?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q6" value="A"> A) Audio files</div>
+                <div class="option"><input type="radio" name="q6" value="B"> B) Video files</div>
+                <div class="option"><input type="radio" name="q6" value="C"> C) Images</div>
+                <div class="option"><input type="radio" name="q6" value="D"> D) All of the above</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q7">
+            <div class="question-text">7. What is the function of the Slide Master?</div>
+            <div class="language">Slide Master-এর কাজ কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q7" value="A"> A) To insert new slides</div>
+                <div class="option"><input type="radio" name="q7" value="B"> B) To control the design of all slides</div>
+                <div class="option"><input type="radio" name="q7" value="C"> C) To add animation</div>
+                <div class="option"><input type="radio" name="q7" value="D"> D) To sort slides</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q8">
+            <div class="question-text">8. Which view is best for rearranging the order of slides?</div>
+            <div class="language">স্লাইডের ক্রম পরিবর্তনের জন্য কোন ভিউ সবচেয়ে উপযোগী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q8" value="A"> A) Slide Sorter View</div>
+                <div class="option"><input type="radio" name="q8" value="B"> B) Normal View</div>
+                <div class="option"><input type="radio" name="q8" value="C"> C) Reading View</div>
+                <div class="option"><input type="radio" name="q8" value="D"> D) Outline View</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q9">
+            <div class="question-text">9. What is the shortcut to insert a new slide?</div>
+            <div class="language">নতুন স্লাইড যোগ করার শর্টকাট কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q9" value="A"> A) Ctrl + N</div>
+                <div class="option"><input type="radio" name="q9" value="B"> B) Ctrl + M</div>
+                <div class="option"><input type="radio" name="q9" value="C"> C) Ctrl + Enter</div>
+                <div class="option"><input type="radio" name="q9" value="D"> D) Ctrl + Shift + S</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q10">
+            <div class="question-text">10. Which feature lets you apply motion effects to objects in your presentation?</div>
+            <div class="language">কোন ফিচার দ্বারা উপস্থাপনার অবজেক্টে মুভমেন্ট এফেক্ট যোগ করা যায়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q10" value="A"> A) Slide Transition</div>
+                <div class="option"><input type="radio" name="q10" value="B"> B) Slide Master</div>
+                <div class="option"><input type="radio" name="q10" value="C"> C) Custom Animation</div>
+                <div class="option"><input type="radio" name="q10" value="D"> D) WordArt</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q11">
+            <div class="question-text">11. In PowerPoint 2007, where can you apply slide transitions?</div>
+            <div class="language">PowerPoint 2007-এ আপনি কোথায় স্লাইড ট্রানজিশন প্রয়োগ করতে পারেন?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q11" value="A"> A) Design tab</div>
+                <div class="option"><input type="radio" name="q11" value="B"> B) Slide Show tab</div>
+                <div class="option"><input type="radio" name="q11" value="C"> C) Animations tab</div>
+                <div class="option"><input type="radio" name="q11" value="D"> D) Transitions tab</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q12">
+            <div class="question-text">12. What does the Notes Pane allow you to do?</div>
+            <div class="language">Notes Pane আপনাকে কী করতে দেয়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q12" value="A"> A) Add speaker notes</div>
+                <div class="option"><input type="radio" name="q12" value="B"> B) Design slides</div>
+                <div class="option"><input type="radio" name="q12" value="C"> C) Play background music</div>
+                <div class="option"><input type="radio" name="q12" value="D"> D) Add hyperlinks</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q13">
+            <div class="question-text">13. Which file format is used to run a presentation automatically?</div>
+            <div class="language">স্বয়ংক্রিয়ভাবে উপস্থাপনা চালাতে কোন ফাইল ফরম্যাট ব্যবহৃত হয়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q13" value="A"> A) .pptx</div>
+                <div class="option"><input type="radio" name="q13" value="B"> B) .ppsx</div>
+                <div class="option"><input type="radio" name="q13" value="C"> C) .docx</div>
+                <div class="option"><input type="radio" name="q13" value="D"> D) .pdf</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q14">
+            <div class="question-text">14. Which tab would you use to insert a chart in a slide?</div>
+            <div class="language">স্লাইডে চার্ট যুক্ত করতে আপনি কোন ট্যাব ব্যবহার করবেন?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q14" value="A"> A) Design</div>
+                <div class="option"><input type="radio" name="q14" value="B"> B) Insert</div>
+                <div class="option"><input type="radio" name="q14" value="C"> C) Review</div>
+                <div class="option"><input type="radio" name="q14" value="D"> D) View</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q15">
+            <div class="question-text">15. What does the Rehearse Timings feature do?</div>
+            <div class="language">Rehearse Timings ফিচারটি কী কাজ করে?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q15" value="A"> A) Adds animations</div>
+                <div class="option"><input type="radio" name="q15" value="B"> B) Records voice narration</div>
+                <div class="option"><input type="radio" name="q15" value="C"> C) Sets the time for each slide</div>
+                <div class="option"><input type="radio" name="q15" value="D"> D) Applies transitions</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+    </div>
+    
+    <div class="quiz-section">
+        <h2>Microsoft Access 2007 (35 Questions)</h2>
+        
+        <div class="question" id="q16">
+            <div class="question-text">16. Microsoft Access is a _____</div>
+            <div class="language">Microsoft Access একটি _____</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q16" value="A"> A) Network Database Model</div>
+                <div class="option"><input type="radio" name="q16" value="B"> B) RDBMS</div>
+                <div class="option"><input type="radio" name="q16" value="C"> C) ORDBMS</div>
+                <div class="option"><input type="radio" name="q16" value="D"> D) OODBMS</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q17">
+            <div class="question-text">17. ____ is not a valid data type in MS Access.</div>
+            <div class="language">MS Access-এ ____ একটি বৈধ ডেটা টাইপ নয়।</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q17" value="A"> A) Auto number</div>
+                <div class="option"><input type="radio" name="q17" value="B"> B) Currency</div>
+                <div class="option"><input type="radio" name="q17" value="C"> C) Memo</div>
+                <div class="option"><input type="radio" name="q17" value="D"> D) Picture</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q18">
+            <div class="question-text">18. What is the maximum length a text field can be?</div>
+            <div class="language">একটি টেক্সট ফিল্ডের সর্বোচ্চ দৈর্ঘ্য কত?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q18" value="A"> A) 75</div>
+                <div class="option"><input type="radio" name="q18" value="B"> B) 120</div>
+                <div class="option"><input type="radio" name="q18" value="C"> C) 255</div>
+                <div class="option"><input type="radio" name="q18" value="D"> D) 265</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q19">
+            <div class="question-text">19. In Access, ____ are used to store the data.</div>
+            <div class="language">Access-এ কোনটি ডেটা সংরক্ষণে ব্যবহৃত হয়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q19" value="A"> A) Report</div>
+                <div class="option"><input type="radio" name="q19" value="B"> B) Form</div>
+                <div class="option"><input type="radio" name="q19" value="C"> C) Table</div>
+                <div class="option"><input type="radio" name="q19" value="D"> D) Query</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q20">
+            <div class="question-text">20. This form displays multiple records, one per row:</div>
+            <div class="language">এই ফর্মটি প্রতি সারিতে একটি করে রেকর্ড দেখায়:</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q20" value="A"> A) Justified</div>
+                <div class="option"><input type="radio" name="q20" value="B"> B) Columnar</div>
+                <div class="option"><input type="radio" name="q20" value="C"> C) Tabular</div>
+                <div class="option"><input type="radio" name="q20" value="D"> D) Datasheet</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q21">
+            <div class="question-text">21. The columns in a Microsoft Access table are called ____</div>
+            <div class="language">Microsoft Access টেবিলের কলামগুলিকে বলা হয় ____</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q21" value="A"> A) Fields</div>
+                <div class="option"><input type="radio" name="q21" value="B"> B) Macro</div>
+                <div class="option"><input type="radio" name="q21" value="C"> C) Columns</div>
+                <div class="option"><input type="radio" name="q21" value="D"> D) Records</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q22">
+            <div class="question-text">22. In MS Access, OLE Object data type can store:</div>
+            <div class="language">MS Access-এ OLE Object ডেটা টাইপ কী সংরক্ষণ করতে পারে?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q22" value="A"> A) Microsoft Excel Spreadsheets</div>
+                <div class="option"><input type="radio" name="q22" value="B"> B) Microsoft Word documents</div>
+                <div class="option"><input type="radio" name="q22" value="C"> C) Sounds</div>
+                <div class="option"><input type="radio" name="q22" value="D"> D) All of the above</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q23">
+            <div class="question-text">23. A part of database that stores complete information about an entity:</div>
+            <div class="language">একটি সত্তার সম্পূর্ণ তথ্য সংরক্ষণকারী ডেটাবেসের অংশ:</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q23" value="A"> A) Record</div>
+                <div class="option"><input type="radio" name="q23" value="B"> B) File</div>
+                <div class="option"><input type="radio" name="q23" value="C"> C) Field</div>
+                <div class="option"><input type="radio" name="q23" value="D"> D) Query</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q24">
+            <div class="question-text">24. The _______ identifies each record uniquely in the table.</div>
+            <div class="language">টেবিলে প্রতিটি রেকর্ডকে আলাদাভাবে চিহ্নিত করে _______</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q24" value="A"> A) Foreign Key</div>
+                <div class="option"><input type="radio" name="q24" value="B"> B) Primary Key</div>
+                <div class="option"><input type="radio" name="q24" value="C"> C) Index</div>
+                <div class="option"><input type="radio" name="q24" value="D"> D) Record Number</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q25">
+            <div class="question-text">25. Forms, queries, and reports are created based on _______</div>
+            <div class="language">Forms, queries, এবং reports তৈরি হয় _______ এর ভিত্তিতে।</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q25" value="A"> A) Table</div>
+                <div class="option"><input type="radio" name="q25" value="B"> B) Macro</div>
+                <div class="option"><input type="radio" name="q25" value="C"> C) Module</div>
+                <div class="option"><input type="radio" name="q25" value="D"> D) Wizard</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q26">
+            <div class="question-text">26. A _______ is a collection of data organized in rows and columns.</div>
+            <div class="language">_______ একটি সারি ও কলামে সংগঠিত ডেটার সংগ্রহ।</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q26" value="A"> A) Form</div>
+                <div class="option"><input type="radio" name="q26" value="B"> B) Table</div>
+                <div class="option"><input type="radio" name="q26" value="C"> C) Report</div>
+                <div class="option"><input type="radio" name="q26" value="D"> D) Macro</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q27">
+            <div class="question-text">27. Which is NOT a part of a database?</div>
+            <div class="language">নিম্নের কোনটি একটি ডেটাবেসের অংশ নয়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q27" value="A"> A) Tables</div>
+                <div class="option"><input type="radio" name="q27" value="B"> B) Records</div>
+                <div class="option"><input type="radio" name="q27" value="C"> C) Fields</div>
+                <div class="option"><input type="radio" name="q27" value="D"> D) Columns</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q28">
+            <div class="question-text">28. Which of the following is a valid data type in Access?</div>
+            <div class="language">নিম্নের কোনটি Access-এ একটি বৈধ ডেটা টাইপ?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q28" value="A"> A) Number</div>
+                <div class="option"><input type="radio" name="q28" value="B"> B) Image</div>
+                <div class="option"><input type="radio" name="q28" value="C"> C) Date/Time</div>
+                <div class="option"><input type="radio" name="q28" value="D"> D) Both A and C</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q29">
+            <div class="question-text">29. A field that uniquely identifies each record is called:</div>
+            <div class="language">যে ফিল্ড প্রতিটি রেকর্ডকে আলাদাভাবে চিহ্নিত করে তাকে বলে:</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q29" value="A"> A) Primary Key</div>
+                <div class="option"><input type="radio" name="q29" value="B"> B) Unique Field</div>
+                <div class="option"><input type="radio" name="q29" value="C"> C) Identifier</div>
+                <div class="option"><input type="radio" name="q29" value="D"> D) Record ID</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q30">
+            <div class="question-text">30. What type of relationship exists when one record relates to many?</div>
+            <div class="language">একটি রেকর্ড যদি অনেক রেকর্ডের সাথে সম্পর্কিত হয়, তখন সম্পর্কটি কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q30" value="A"> A) One-to-One</div>
+                <div class="option"><input type="radio" name="q30" value="B"> B) One-to-Many</div>
+                <div class="option"><input type="radio" name="q30" value="C"> C) Many-to-Many</div>
+                <div class="option"><input type="radio" name="q30" value="D"> D) None</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q31">
+            <div class="question-text">31. What is used to create a relationship between tables?</div>
+            <div class="language">টেবিলগুলোর মধ্যে সম্পর্ক তৈরি করতে কী ব্যবহার করা হয়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q31" value="A"> A) Field</div>
+                <div class="option"><input type="radio" name="q31" value="B"> B) Key</div>
+                <div class="option"><input type="radio" name="q31" value="C"> C) Query</div>
+                <div class="option"><input type="radio" name="q31" value="D"> D) Report</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q32">
+            <div class="question-text">32. Which is a valid method to filter records in a table?</div>
+            <div class="language">একটি টেবিলে রেকর্ড ফিল্টার করার বৈধ উপায় কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q32" value="A"> A) Report</div>
+                <div class="option"><input type="radio" name="q32" value="B"> B) Sort</div>
+                <div class="option"><input type="radio" name="q32" value="C"> C) Query</div>
+                <div class="option"><input type="radio" name="q32" value="D"> D) Module</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q33">
+            <div class="question-text">33. What does a Query do in MS Access?</div>
+            <div class="language">MS Access-এ Query কী কাজ করে?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q33" value="A"> A) Display records</div>
+                <div class="option"><input type="radio" name="q33" value="B"> B) Modify records</div>
+                <div class="option"><input type="radio" name="q33" value="C"> C) Retrieve specific data</div>
+                <div class="option"><input type="radio" name="q33" value="D"> D) Design forms</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q34">
+            <div class="question-text">34. Which object is used to input data into a table?</div>
+            <div class="language">টেবিলে ডেটা ইনপুটের জন্য কোন অবজেক্ট ব্যবহৃত হয়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q34" value="A"> A) Form</div>
+                <div class="option"><input type="radio" name="q34" value="B"> B) Report</div>
+                <div class="option"><input type="radio" name="q34" value="C"> C) Macro</div>
+                <div class="option"><input type="radio" name="q34" value="D"> D) Field</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q35">
+            <div class="question-text">35. What does a Report do in MS Access?</div>
+            <div class="language">MS Access-এ Report কী করে?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q35" value="A"> A) Modifies table</div>
+                <div class="option"><input type="radio" name="q35" value="B"> B) Organizes printed output</div>
+                <div class="option"><input type="radio" name="q35" value="C"> C) Writes formulas</div>
+                <div class="option"><input type="radio" name="q35" value="D"> D) Deletes queries</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q36">
+            <div class="question-text">36. A field in one table that refers to a Primary Key in another:</div>
+            <div class="language">একটি টেবিলের একটি ফিল্ড অন্য টেবিলের প্রাইমারি কি নির্দেশ করে:</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q36" value="A"> A) Foreign Key</div>
+                <div class="option"><input type="radio" name="q36" value="B"> B) Secondary Key</div>
+                <div class="option"><input type="radio" name="q36" value="C"> C) Composite Key</div>
+                <div class="option"><input type="radio" name="q36" value="D"> D) Lookup Key</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q37">
+            <div class="question-text">37. A One-to-One relationship means:</div>
+            <div class="language">One-to-One সম্পর্ক বোঝায়:</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q37" value="A"> A) One record relates to many</div>
+                <div class="option"><input type="radio" name="q37" value="B"> B) One record to one</div>
+                <div class="option"><input type="radio" name="q37" value="C"> C) Many records to one</div>
+                <div class="option"><input type="radio" name="q37" value="D"> D) No relationship</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q38">
+            <div class="question-text">38. A Macro in Access is used to:</div>
+            <div class="language">Access-এ Macro ব্যবহৃত হয়:</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q38" value="A"> A) Create tables</div>
+                <div class="option"><input type="radio" name="q38" value="B"> B) Automate tasks</div>
+                <div class="option"><input type="radio" name="q38" value="C"> C) Design reports</div>
+                <div class="option"><input type="radio" name="q38" value="D"> D) Store queries</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q39">
+            <div class="question-text">39. Which is not a valid object in Access?</div>
+            <div class="language">নিম্নের কোনটি Access-এ বৈধ অবজেক্ট নয়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q39" value="A"> A) Table</div>
+                <div class="option"><input type="radio" name="q39" value="B"> B) Query</div>
+                <div class="option"><input type="radio" name="q39" value="C"> C) Folder</div>
+                <div class="option"><input type="radio" name="q39" value="D"> D) Report</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q40">
+            <div class="question-text">40. What is the extension of MS Access 2007 files?</div>
+            <div class="language">MS Access 2007 ফাইলের এক্সটেনশন কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q40" value="A"> A) .mdb</div>
+                <div class="option"><input type="radio" name="q40" value="B"> B) .accdb</div>
+                <div class="option"><input type="radio" name="q40" value="C"> C) .dbf</div>
+                <div class="option"><input type="radio" name="q40" value="D"> D) .dat</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q41">
+            <div class="question-text">41. Which of the following cannot be a primary key?</div>
+            <div class="language">নিম্নের কোনটি প্রাইমারি কি হতে পারে না?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q41" value="A"> A) AutoNumber</div>
+                <div class="option"><input type="radio" name="q41" value="B"> B) Memo</div>
+                <div class="option"><input type="radio" name="q41" value="C"> C) Number</div>
+                <div class="option"><input type="radio" name="q41" value="D"> D) Text</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q42">
+            <div class="question-text">42. What is the default view of a table in Access?</div>
+            <div class="language">Access-এ একটি টেবিলের ডিফল্ট ভিউ কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q42" value="A"> A) Form View</div>
+                <div class="option"><input type="radio" name="q42" value="B"> B) Datasheet View</div>
+                <div class="option"><input type="radio" name="q42" value="C"> C) Report View</div>
+                <div class="option"><input type="radio" name="q42" value="D"> D) Design View</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q43">
+            <div class="question-text">43. Which tool helps analyze data in MS Access?</div>
+            <div class="language">MS Access-এ কোন টুল ডেটা বিশ্লেষণ করতে সাহায্য করে?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q43" value="A"> A) Analyzer Wizard</div>
+                <div class="option"><input type="radio" name="q43" value="B"> B) Query</div>
+                <div class="option"><input type="radio" name="q43" value="C"> C) Table</div>
+                <div class="option"><input type="radio" name="q43" value="D"> D) Relationship</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q44">
+            <div class="question-text">44. A relationship is created using:</div>
+            <div class="language">সম্পর্ক তৈরি করা হয়:</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q44" value="A"> A) Forms</div>
+                <div class="option"><input type="radio" name="q44" value="B"> B) Queries</div>
+                <div class="option"><input type="radio" name="q44" value="C"> C) Common Fields</div>
+                <div class="option"><input type="radio" name="q44" value="D"> D) Reports</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q45">
+            <div class="question-text">45. The purpose of Lookup Wizard is:</div>
+            <div class="language">Lookup Wizard-এর উদ্দেশ্য কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q45" value="A"> A) Create relationship</div>
+                <div class="option"><input type="radio" name="q45" value="B"> B) Filter data</div>
+                <div class="option"><input type="radio" name="q45" value="C"> C) Select a value from another table</div>
+                <div class="option"><input type="radio" name="q45" value="D"> D) Run macros</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q46">
+            <div class="question-text">46. The Zoom box in design view is opened using:</div>
+            <div class="language">Design view-এ Zoom box খোলার শর্টকাট কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q46" value="A"> A) F2</div>
+                <div class="option"><input type="radio" name="q46" value="B"> B) Shift + F2</div>
+                <div class="option"><input type="radio" name="q46" value="C"> C) Alt + F3</div>
+                <div class="option"><input type="radio" name="q46" value="D"> D) Ctrl + Z</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q47">
+            <div class="question-text">47. Which view is used to define field properties?</div>
+            <div class="language">Field properties নির্ধারণ করতে কোন ভিউ ব্যবহার করা হয়?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q47" value="A"> A) Form View</div>
+                <div class="option"><input type="radio" name="q47" value="B"> B) Design View</div>
+                <div class="option"><input type="radio" name="q47" value="C"> C) Datasheet View</div>
+                <div class="option"><input type="radio" name="q47" value="D"> D) Report View</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q48">
+            <div class="question-text">48. Referential integrity ensures:</div>
+            <div class="language">Referential integrity নিশ্চিত করে:</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q48" value="A"> A) Duplicates allowed</div>
+                <div class="option"><input type="radio" name="q48" value="B"> B) Alphabetical sort</div>
+                <div class="option"><input type="radio" name="q48" value="C"> C) Valid table relationships</div>
+                <div class="option"><input type="radio" name="q48" value="D"> D) Correct formatting</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q49">
+            <div class="question-text">49. What is the use of the Switchboard in Access?</div>
+            <div class="language">Access-এ Switchboard-এর কাজ কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q49" value="A"> A) Sort data</div>
+                <div class="option"><input type="radio" name="q49" value="B"> B) Input form</div>
+                <div class="option"><input type="radio" name="q49" value="C"> C) Navigation menu</div>
+                <div class="option"><input type="radio" name="q49" value="D"> D) Charting</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+        
+        <div class="question" id="q50">
+            <div class="question-text">50. What is the purpose of Compact and Repair?</div>
+            <div class="language">Compact and Repair টুলটির উদ্দেশ্য কী?</div>
+            <div class="options">
+                <div class="option"><input type="radio" name="q50" value="A"> A) Create macros</div>
+                <div class="option"><input type="radio" name="q50" value="B"> B) Speed up and fix errors</div>
+                <div class="option"><input type="radio" name="q50" value="C"> C) Make relationships</div>
+                <div class="option"><input type="radio" name="q50" value="D"> D) Backup database</div>
+            </div>
+            <div class="result hidden"></div>
+        </div>
+    </div>
+    
+    <button id="submit-btn">Submit Quiz</button>
+    </div>
+    
+    <script>
+        // Show welcome message first, then quiz after 3 seconds
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('welcomeOverlay').style.display = 'none';
+                document.getElementById('quizContent').style.display = 'block';
+            }, 3000); // 3 seconds delay
+            
+            // Correct answers
+            const answers = {
+                q1: "B", q2: "B", q3: "B", q4: "C", q5: "A",
+                q6: "D", q7: "B", q8: "A", q9: "B", q10: "C",
+                q11: "D", q12: "A", q13: "B", q14: "B", q15: "C",
+                q16: "B", q17: "D", q18: "C", q19: "C", q20: "C",
+                q21: "A", q22: "D", q23: "A", q24: "B", q25: "A",
+                q26: "B", q27: "D", q28: "D", q29: "A", q30: "B",
+                q31: "B", q32: "C", q33: "C", q34: "A", q35: "B",
+                q36: "A", q37: "B", q38: "B", q39: "C", q40: "B",
+                q41: "B", q42: "B", q43: "A", q44: "C", q45: "C",
+                q46: "B", q47: "B", q48: "C", q49: "C", q50: "B"
+            };
+            
+            document.getElementById("submit-btn").addEventListener("click", function() {
+                let score = 0;
+                
+                // Check each question
+                for (let i = 1; i <= 50; i++) {
+                    const questionId = "q" + i;
+                    const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+                    const resultDiv = document.querySelector(`#${questionId} .result`);
+                    
+                    if (selectedOption) {
+                        if (selectedOption.value === answers[questionId]) {
+                            score++;
+                            resultDiv.textContent = "Correct!";
+                            resultDiv.className = "result correct";
+                        } else {
+                            resultDiv.textContent = `Incorrect! The correct answer is ${answers[questionId]}`;
+                            resultDiv.className = "result incorrect";
+                        }
+                        resultDiv.classList.remove("hidden");
+                    }
+                }
+                
+                // Calculate percentage
+                const percentage = (score / 50) * 100;
+                
+                // Show final score
+                alert(`You scored ${score} out of 50 (${percentage}%)`);
+            });
+        };
+    </script>
+</body>
+</html>

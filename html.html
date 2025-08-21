@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Quiz</title>
+    <style>
+        /* Welcome Message Styles */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        
+        .welcome-message {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #3498db, 0 0 20px #3498db;
+            animation: glow 2s infinite alternate;
+        }
+        
+        .welcome-submessage {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #f1c40f;
+            animation: fadeIn 2s;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #3498db, 0 0 20px #3498db;
+            }
+            to {
+                text-shadow: 0 0 15px #3498db, 0 0 30px #3498db, 0 0 40px #3498db;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Original Quiz Styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .quiz-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+        }
+        
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .options {
+            margin-left: 20px;
+        }
+        
+        .option {
+            margin-bottom: 8px;
+        }
+        
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .language {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Overlay -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-submessage">HTML Fundamentals</div>
+        <div class="welcome-message">Welcome To HTML Quiz</div>
+        <div class="welcome-submessage">Test Your HTML Knowledge</div>
+    </div>
+    
+    <!-- Quiz Content (hidden initially) -->
+    <div id="quizContent" style="display:none;">
+        <h1>HTML Quiz</h1>
+        
+        <div class="quiz-section">
+            <h2>HTML Basics (30 Questions)</h2>
+            
+            <div class="question" id="q1">
+                <div class="question-text">1. What does HTML stand for?</div>
+                <div class="language">HTML এর পূর্ণরূপ কী?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q1" value="A"> A) Hyper Text Markup Language</div>
+                    <div class="option"><input type="radio" name="q1" value="B"> B) High Tech Modern Language</div>
+                    <div class="option"><input type="radio" name="q1" value="C"> C) Hyper Transfer Markup Language</div>
+                    <div class="option"><input type="radio" name="q1" value="D"> D) Home Tool Markup Language</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q2">
+                <div class="question-text">2. Which tag is used to create a hyperlink in HTML?</div>
+                <div class="language">HTML-এ হাইপারলিংক তৈরি করতে কোন ট্যাগ ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q2" value="A"> A) &lt;link&gt;</div>
+                    <div class="option"><input type="radio" name="q2" value="B"> B) &lt;a&gt;</div>
+                    <div class="option"><input type="radio" name="q2" value="C"> C) &lt;href&gt;</div>
+                    <div class="option"><input type="radio" name="q2" value="D"> D) &lt;hyper&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q3">
+                <div class="question-text">3. What is the correct HTML element for the largest heading?</div>
+                <div class="language">সবচেয়ে বড় হেডিং এর জন্য সঠিক HTML এলিমেন্ট কোনটি?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q3" value="A"> A) &lt;head&gt;</div>
+                    <div class="option"><input type="radio" name="q3" value="B"> B) &lt;h6&gt;</div>
+                    <div class="option"><input type="radio" name="q3" value="C"> C) &lt;h1&gt;</div>
+                    <div class="option"><input type="radio" name="q3" value="D"> D) &lt;heading&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q4">
+                <div class="question-text">4. Which character is used to indicate an end tag?</div>
+                <div class="language">এন্ড ট্যাগ নির্দেশ করতে কোন ক্যারেক্টার ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q4" value="A"> A) /</div>
+                    <div class="option"><input type="radio" name="q4" value="B"> B) \</div>
+                    <div class="option"><input type="radio" name="q4" value="C"> C) ></div>
+                    <div class="option"><input type="radio" name="q4" value="D"> D) *</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q5">
+                <div class="question-text">5. How can you make a numbered list?</div>
+                <div class="language">নম্বরযুক্ত তালিকা কিভাবে তৈরি করবেন?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q5" value="A"> A) &lt;ul&gt;</div>
+                    <div class="option"><input type="radio" name="q5" value="B"> B) &lt;list&gt;</div>
+                    <div class="option"><input type="radio" name="q5" value="C"> C) &lt;ol&gt;</div>
+                    <div class="option"><input type="radio" name="q5" value="D"> D) &lt;dl&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q6">
+                <div class="question-text">6. Which HTML element defines the title of a document?</div>
+                <div class="language">কোন HTML এলিমেন্টটি ডকুমেন্টের শিরোনাম নির্ধারণ করে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q6" value="A"> A) &lt;meta&gt;</div>
+                    <div class="option"><input type="radio" name="q6" value="B"> B) &lt;title&gt;</div>
+                    <div class="option"><input type="radio" name="q6" value="C"> C) &lt;head&gt;</div>
+                    <div class="option"><input type="radio" name="q6" value="D"> D) &lt;header&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q7">
+                <div class="question-text">7. Which HTML attribute specifies an alternate text for an image, if the image cannot be displayed?</div>
+                <div class="language">কোন HTML অ্যাট্রিবিউট ইমেজ প্রদর্শন না করা গেলে বিকল্প টেক্সট নির্দিষ্ট করে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q7" value="A"> A) title</div>
+                    <div class="option"><input type="radio" name="q7" value="B"> B) src</div>
+                    <div class="option"><input type="radio" name="q7" value="C"> C) alt</div>
+                    <div class="option"><input type="radio" name="q7" value="D"> D) longdesc</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q8">
+                <div class="question-text">8. Which doctype is correct for HTML5?</div>
+                <div class="language">HTML5 এর জন্য কোন ডকটাইপ সঠিক?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q8" value="A"> A) &lt;!DOCTYPE html&gt;</div>
+                    <div class="option"><input type="radio" name="q8" value="B"> B) &lt;!DOCTYPE HTML5&gt;</div>
+                    <div class="option"><input type="radio" name="q8" value="C"> C) &lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 5.0//EN"&gt;</div>
+                    <div class="option"><input type="radio" name="q8" value="D"> D) &lt;DOCTYPE html&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q9">
+                <div class="question-text">9. Which HTML element is used to specify a footer for a document or section?</div>
+                <div class="language">ডকুমেন্ট বা সেকশনের জন্য ফুটার নির্দিষ্ট করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q9" value="A"> A) &lt;bottom&gt;</div>
+                    <div class="option"><input type="radio" name="q9" value="B"> B) &lt;footer&gt;</div>
+                    <div class="option"><input type="radio" name="q9" value="C"> C) &lt;section&gt;</div>
+                    <div class="option"><input type="radio" name="q9" value="D"> D) &lt;div&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q10">
+                <div class="question-text">10. In HTML, which attribute is used to specify that an input field must be filled out?</div>
+                <div class="language">HTML-এ, কোন অ্যাট্রিবিউট ব্যবহার করে নির্দিষ্ট করা হয় যে একটি ইনপুট ফিল্ড অবশ্যই পূরণ করতে হবে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q10" value="A"> A) placeholder</div>
+                    <div class="option"><input type="radio" name="q10" value="B"> B) required</div>
+                    <div class="option"><input type="radio" name="q10" value="C"> C) validate</div>
+                    <div class="option"><input type="radio" name="q10" value="D"> D) important</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q11">
+                <div class="question-text">11. Which input type defines a slider control?</div>
+                <div class="language">কোন ইনপুট টাইপ একটি স্লাইডার কন্ট্রোল নির্ধারণ করে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q11" value="A"> A) search</div>
+                    <div class="option"><input type="radio" name="q11" value="B"> B) range</div>
+                    <div class="option"><input type="radio" name="q11" value="C"> C) slider</div>
+                    <div class="option"><input type="radio" name="q11" value="D"> D) controls</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q12">
+                <div class="question-text">12. Which HTML element is used to display a scalar measurement within a range?</div>
+                <div class="language">কোন HTML এলিমেন্ট একটি রেঞ্জের মধ্যে স্কেলার পরিমাপ প্রদর্শন করতে ব্যবহৃত হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q12" value="A"> A) &lt;gauge&gt;</div>
+                    <div class="option"><input type="radio" name="q12" value="B"> B) &lt;range&gt;</div>
+                    <div class="option"><input type="radio" name="q12" value="C"> C) &lt;measure&gt;</div>
+                    <div class="option"><input type="radio" name="q12" value="D"> D) &lt;meter&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q13">
+                <div class="question-text">13. Which HTML element defines navigation links?</div>
+                <div class="language">কোন HTML এলিমেন্ট নেভিগেশন লিঙ্কগুলি নির্ধারণ করে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q13" value="A"> A) &lt;navigate&gt;</div>
+                    <div class="option"><input type="radio" name="q13" value="B"> B) &lt;navigation&gt;</div>
+                    <div class="option"><input type="radio" name="q13" value="C"> C) &lt;nav&gt;</div>
+                    <div class="option"><input type="radio" name="q13" value="D"> D) &lt;link&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q14">
+                <div class="question-text">14. In HTML, what does the &lt;aside&gt; element define?</div>
+                <div class="language">HTML-এ, &lt;aside&gt; এলিমেন্টটি কী নির্ধারণ করে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q14" value="A"> A) Content aside from the page content</div>
+                    <div class="option"><input type="radio" name="q14" value="B"> B) A list of navigation links</div>
+                    <div class="option"><input type="radio" name="q14" value="C"> C) Content that is not important</div>
+                    <div class="option"><input type="radio" name="q14" value="D"> D) A sidebar</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q15">
+                <div class="question-text">15. Which HTML element is used to specify a header for a document or section?</div>
+                <div class="language">ডকুমেন্ট বা সেকশনের জন্য হেডার নির্দিষ্ট করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q15" value="A"> A) &lt;top&gt;</div>
+                    <div class="option"><input type="radio" name="q15" value="B"> B) &lt;header&gt;</div>
+                    <div class="option"><input type="radio" name="q15" value="C"> C) &lt;head&gt;</div>
+                    <div class="option"><input type="radio" name="q15" value="D"> D) &lt;section&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q16">
+                <div class="question-text">16. What is the purpose of the &lt;figure&gt; element in HTML5?</div>
+                <div class="language">HTML5-এ &lt;figure&gt; এলিমেন্টের উদ্দেশ্য কী?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q16" value="A"> A) To group a caption with an image</div>
+                    <div class="option"><input type="radio" name="q16" value="B"> B) To draw graphics on the fly</div>
+                    <div class="option"><input type="radio" name="q16" value="C"> C) To create a figure or diagram</div>
+                    <div class="option"><input type="radio" name="q16" value="D"> D) To represent a mathematical formula</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q17">
+                <div class="question-text">17. Which HTML5 element is used for highlighted text?</div>
+                <div class="language">হাইলাইট করা টেক্সটের জন্য কোন HTML5 এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q17" value="A"> A) &lt;highlight&gt;</div>
+                    <div class="option"><input type="radio" name="q17" value="B"> B) &lt;mark&gt;</div>
+                    <div class="option"><input type="radio" name="q17" value="C"> C) &lt;strong&gt;</div>
+                    <div class="option"><input type="radio" name="q17" value="D"> D) &lt;em&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q18">
+                <div class="question-text">18. Which input type is used for entering a date and time?</div>
+                <div class="language">তারিখ এবং সময় প্রবেশ করার জন্য কোন ইনপুট টাইপ ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q18" value="A"> A) datetime</div>
+                    <div class="option"><input type="radio" name="q18" value="B"> B) date</div>
+                    <div class="option"><input type="radio" name="q18" value="C"> C) time</div>
+                    <div class="option"><input type="radio" name="q18" value="D"> D) datetime-local</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q19">
+                <div class="question-text">19. Which HTML element is used to specify a section that is quoted from another source?</div>
+                <div class="language">অন্য উৎস থেকে উদ্ধৃত একটি বিভাগ নির্দিষ্ট করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q19" value="A"> A) &lt;quote&gt;</div>
+                    <div class="option"><input type="radio" name="q19" value="B"> B) &lt;blockquote&gt;</div>
+                    <div class="option"><input type="radio" name="q19" value="C"> C) &lt;q&gt;</div>
+                    <div class="option"><input type="radio" name="q19" value="D"> D) &lt;cite&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q20">
+                <div class="question-text">20. Which HTML element defines the root of an HTML document?</div>
+                <div class="language">কোন HTML এলিমেন্ট একটি HTML ডকুমেন্টের রুট নির্ধারণ করে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q20" value="A"> A) &lt;root&gt;</div>
+                    <div class="option"><input type="radio" name="q20" value="B"> B) &lt;html&gt;</div>
+                    <div class="option"><input type="radio" name="q20" value="C"> C) &lt;document&gt;</div>
+                    <div class="option"><input type="radio" name="q20" value="D"> D) &lt;body&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q21">
+                <div class="question-text">21. Which HTML attribute is used to define inline styles?</div>
+                <div class="language">ইনলাইন স্টাইল সংজ্ঞায়িত করতে কোন HTML অ্যাট্রিবিউট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q21" value="A"> A) styles</div>
+                    <div class="option"><input type="radio" name="q21" value="B"> B) style</div>
+                    <div class="option"><input type="radio" name="q21" value="C"> C) class</div>
+                    <div class="option"><input type="radio" name="q21" value="D"> D) font</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q22">
+                <div class="question-text">22. Which HTML element is used to define description lists?</div>
+                <div class="language">বিবরণী তালিকা সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q22" value="A"> A) &lt;list&gt;</div>
+                    <div class="option"><input type="radio" name="q22" value="B"> B) &lt;dl&gt;</div>
+                    <div class="option"><input type="radio" name="q22" value="C"> C) &lt;dd&gt;</div>
+                    <div class="option"><input type="radio" name="q22" value="D"> D) &lt;ul&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q23">
+                <div class="question-text">23. Which HTML element defines a table row?</div>
+                <div class="language">কোন HTML এলিমেন্ট একটি টেবিল সারি নির্ধারণ করে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q23" value="A"> A) &lt;td&gt;</div>
+                    <div class="option"><input type="radio" name="q23" value="B"> B) &lt;tr&gt;</div>
+                    <div class="option"><input type="radio" name="q23" value="C"> C) &lt;th&gt;</div>
+                    <div class="option"><input type="radio" name="q23" value="D"> D) &lt;table&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q24">
+                <div class="question-text">24. Which HTML element defines a table header?</div>
+                <div class="language">কোন HTML এলিমেন্ট একটি টেবিল হেডার নির্ধারণ করে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q24" value="A"> A) &lt;td&gt;</div>
+                    <div class="option"><input type="radio" name="q24" value="B"> B) &lt;header&gt;</div>
+                    <div class="option"><input type="radio" name="q24" value="C"> C) &lt;th&gt;</div>
+                    <div class="option"><input type="radio" name="q24" value="D"> D) &lt;thead&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q25">
+                <div class="question-text">25. Which HTML element defines a table cell?</div>
+                <div class="language">কোন HTML এলিমেন্ট একটি টেবিল সেল নির্ধারণ করে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q25" value="A"> A) &lt;td&gt;</div>
+                    <div class="option"><input type="radio" name="q25" value="B"> B) &lt;tr&gt;</div>
+                    <div class="option"><input type="radio" name="q25" value="C"> C) &lt;cell&gt;</div>
+                    <div class="option"><input type="radio" name="q25" value="D"> D) &lt;table&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q26">
+                <div class="question-text">26. Which HTML element is used to define a multi-line text input control?</div>
+                <div class="language">একটি মাল্টি-লাইন টেক্সট ইনপুট কন্ট্রোল সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q26" value="A"> A) &lt;textbox&gt;</div>
+                    <div class="option"><input type="radio" name="q26" value="B"> B) &lt;input type="multiline"&gt;</div>
+                    <div class="option"><input type="radio" name="q26" value="C"> C) &lt;textarea&gt;</div>
+                    <div class="option"><input type="radio" name="q26" value="D"> D) &lt;text&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q27">
+                <div class="question-text">27. Which HTML element is used to define the title of a work?</div>
+                <div class="language">একটি কাজের শিরোনাম সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q27" value="A"> A) &lt;title&gt;</div>
+                    <div class="option"><input type="radio" name="q27" value="B"> B) &lt;work&gt;</div>
+                    <div class="option"><input type="radio" name="q27" value="C"> C) &lt;cite&gt;</div>
+                    <div class="option"><input type="radio" name="q27" value="D"> D) &lt;heading&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q28">
+                <div class="question-text">28. Which HTML element is used to define a drop-down list?</div>
+                <div class="language">একটি ড্রপ-ডাউন তালিকা সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q28" value="A"> A) &lt;list&gt;</div>
+                    <div class="option"><input type="radio" name="q28" value="B"> B) &lt;dropdown&gt;</div>
+                    <div class="option"><input type="radio" name="q28" value="C"> C) &lt;select&gt;</div>
+                    <div class="option"><input type="radio" name="q28" value="D"> D) &lt;input type="dropdown"&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q29">
+                <div class="question-text">29. Which HTML element is used to define a caption for a &lt;figure&gt; element?</div>
+                <div class="language">&lt;figure&gt; এলিমেন্টের জন্য ক্যাপশন সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q29" value="A"> A) &lt;caption&gt;</div>
+                    <div class="option"><input type="radio" name="q29" value="B"> B) &lt;figcaption&gt;</div>
+                    <div class="option"><input type="radio" name="q29" value="C"> C) &lt;legend&gt;</div>
+                    <div class="option"><input type="radio" name="q29" value="D"> D) &lt;title&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q30">
+                <div class="question-text">30. Which HTML element is used to define a section in a document?</div>
+                <div class="language">একটি ডকুমেন্টে একটি বিভাগ সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q30" value="A"> A) &lt;div&gt;</div>
+                    <div class="option"><input type="radio" name="q30" value="B"> B) &lt;section&gt;</div>
+                    <div class="option"><input type="radio" name="q30" value="C"> C) &lt;span&gt;</div>
+                    <div class="option"><input type="radio" name="q30" value="D"> D) &lt;area&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+        </div>
+        
+        <div class="quiz-section">
+            <h2>HTML Advanced (30 Questions)</h2>
+            
+            <div class="question" id="q31">
+                <div class="question-text">31. Which HTML element is used to define a thematic change in the content?</div>
+                <div class="language">কন্টেন্টে একটি থিম্যাটিক পরিবর্তন সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q31" value="A"> A) &lt;break&gt;</div>
+                    <div class="option"><input type="radio" name="q31" value="B"> B) &lt;hr&gt;</div>
+                    <div class="option"><input type="radio" name="q31" value="C"> C) &lt;div&gt;</div>
+                    <div class="option"><input type="radio" name="q31" value="D"> D) &lt;change&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q32">
+                <div class="question-text">32. Which HTML element is used to define a part of text in an alternate voice or mood?</div>
+                <div class="language">একটি বিকল্প ভয়েস বা মুডে টেক্সটের একটি অংশ সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q32" value="A"> A) &lt;italic&gt;</div>
+                    <div class="option"><input type="radio" name="q32" value="B"> B) &lt;em&gt;</div>
+                    <div class="option"><input type="radio" name="q32" value="C"> C) &lt;strong&gt;</div>
+                    <div class="option"><input type="radio" name="q32" value="D"> D) &lt;alternate&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q33">
+                <div class="question-text">33. Which HTML element is used to define a part of text that is isolated from its surrounding for bidirectional text formatting?</div>
+                <div class="language">বাইডাইরেকশনাল টেক্সট ফরম্যাটিং এর জন্য তার চারপাশ থেকে বিচ্ছিন্ন টেক্সটের একটি অংশ সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q33" value="A"> A) &lt;bdi&gt;</div>
+                    <div class="option"><input type="radio" name="q33" value="B"> B) &lt;isolate&gt;</div>
+                    <div class="option"><input type="radio" name="q33" value="C"> C) &lt;dir&gt;</div>
+                    <div class="option"><input type="radio" name="q33" value="D"> D) &lt;bdo&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q34">
+                <div class="question-text">34. Which HTML element is used to override the current text direction?</div>
+                <div class="language">বর্তমান টেক্সট দিক পরিবর্তন করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q34" value="A"> A) &lt;textdirection&gt;</div>
+                    <div class="option"><input type="radio" name="q34" value="B"> B) &lt;bdo&gt;</div>
+                    <div class="option"><input type="radio" name="q34" value="C"> C) &lt;dir&gt;</div>
+                    <div class="option"><input type="radio" name="q34" value="D"> D) &lt;override&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q35">
+                <div class="question-text">35. Which HTML element is used to define a dialog box or window?</div>
+                <div class="language">একটি ডায়লগ বক্স বা উইন্ডো সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q35" value="A"> A) &lt;dialog&gt;</div>
+                    <div class="option"><input type="radio" name="q35" value="B"> B) &lt;popup&gt;</div>
+                    <div class="option"><input type="radio" name="q35" value="C"> C) &lt;window&gt;</div>
+                    <div class="option"><input type="radio" name="q35" value="D"> D) &lt;box&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q36">
+                <div class="question-text">36. Which HTML element is used to define a summary/details disclosure widget?</div>
+                <div class="language">একটি সামারি/বিবরণী প্রকাশ উইজেট সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q36" value="A"> A) &lt;summary&gt;</div>
+                    <div class="option"><input type="radio" name="q36" value="B"> B) &lt;details&gt;</div>
+                    <div class="option"><input type="radio" name="q36" value="C"> C) &lt;disclosure&gt;</div>
+                    <div class="option"><input type="radio" name="q36" value="D"> D) &lt;widget&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q37">
+                <div class="question-text">37. Which HTML element is used to define a command/menu item that the user can invoke from a popup menu?</div>
+                <div class="language">একটি কমান্ড/মেনু আইটেম সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয় যা ব্যবহারকারী একটি পপআপ মেনু থেকে আহ্বান করতে পারে?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q37" value="A"> A) &lt;command&gt;</div>
+                    <div class="option"><input type="radio" name="q37" value="B"> B) &lt;menuitem&gt;</div>
+                    <div class="option"><input type="radio" name="q37" value="C"> C) &lt;item&gt;</div>
+                    <div class="option"><input type="radio" name="q37" value="D"> D) &lt;menu&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q38">
+                <div class="question-text">38. Which HTML element is used to define a container for an external application or interactive content?</div>
+                <div class="language">একটি বাহ্যিক অ্যাপ্লিকেশন বা ইন্টারেক্টিভ কন্টেন্টের জন্য একটি কন্টেইনার সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q38" value="A"> A) &lt;app&gt;</div>
+                    <div class="option"><input type="radio" name="q38" value="B"> B) &lt;embed&gt;</div>
+                    <div class="option"><input type="radio" name="q38" value="C"> C) &lt;object&gt;</div>
+                    <div class="option"><input type="radio" name="q38" value="D"> D) &lt;container&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q39">
+                <div class="question-text">39. Which HTML element is used to define a caption for a &lt;fieldset&gt; element?</div>
+                <div class="language">&lt;fieldset&gt; এলিমেন্টের জন্য একটি ক্যাপশন সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q39" value="A"> A) &lt;caption&gt;</div>
+                    <div class="option"><input type="radio" name="q39" value="B"> B) &lt;legend&gt;</div>
+                    <div class="option"><input type="radio" name="q39" value="C"> C) &lt;label&gt;</div>
+                    <div class="option"><input type="radio" name="q39" value="D"> D) &lt;title&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q40">
+                <div class="question-text">40. Which HTML element is used to define a footer for a document or section?</div>
+                <div class="language">একটি ডকুমেন্ট বা সেকশনের জন্য একটি ফুটার সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q40" value="A"> A) &lt;bottom&gt;</div>
+                    <div class="option"><input type="radio" name="q40" value="B"> B) &lt;footer&gt;</div>
+                    <div class="option"><input type="radio" name="q40" value="C"> C) &lt;end&gt;</div>
+                    <div class="option"><input type="radio" name="q40" value="D"> D) &lt;close&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q41">
+                <div class="question-text">41. Which HTML element is used to define a header for a document or section?</div>
+                <div class="language">একটি ডকুমেন্ট বা সেকশনের জন্য একটি হেডার সংজ্ঞায়িত করতে কোন HTML এলिमেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q41" value="A"> A) &lt;top&gt;</div>
+                    <div class="option"><input type="radio" name="q41" value="B"> B) &lt;header&gt;</div>
+                    <div class="option"><input type="radio" name="q41" value="C"> C) &lt;head&gt;</div>
+                    <div class="option"><input type="radio" name="q41" value="D"> D) &lt;heading&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q42">
+                <div class="question-text">42. Which HTML element is used to define the main content of a document?</div>
+                <div class="language">একটি ডকুমেন্টের মূল কন্টেন্ট সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q42" value="A"> A) &lt;content&gt;</div>
+                    <div class="option"><input type="radio" name="q42" value="B"> B) &lt;main&gt;</div>
+                    <div class="option"><input type="radio" name="q42" value="C"> C) &lt;body&gt;</div>
+                    <div class="option"><input type="radio" name="q42" value="D"> D) &lt;document&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q43">
+                <div class="question-text">43. Which HTML element is used to define a section in a document?</div>
+                <div class="language">একটি ডকুমেন্টে একটি বিভাগ সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q43" value="A"> A) &lt;div&gt;</div>
+                    <div class="option"><input type="radio" name="q43" value="B"> B) &lt;section&gt;</div>
+                    <div class="option"><input type="radio" name="q43" value="C"> C) &lt;area&gt;</div>
+                    <div class="option"><input type="radio" name="q43" value="D"> D) &lt;block&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q44">
+                <div class="question-text">44. Which HTML element is used to define a group of related options in a drop-down list?</div>
+                <div class="language">একটি ড্রপ-ডাউন তালিকায় সম্পর্কিত বিকল্পগুলির একটি গ্রুপ সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q44" value="A"> A) &lt;group&gt;</div>
+                    <div class="option"><input type="radio" name="q44" value="B"> B) &lt;optgroup&gt;</div>
+                    <div class="option"><input type="radio" name="q44" value="C"> C) &lt;optiongroup&gt;</div>
+                    <div class="option"><input type="radio" name="q44" value="D"> D) &lt;dropdown&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q45">
+                <div class="question-text">45. Which HTML element is used to define the result of a calculation?</div>
+                <div class="language">একটি গণনার ফলাফল সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q45" value="A"> A) &lt;result&gt;</div>
+                    <div class="option"><input type="radio" name="q45" value="B"> B) &lt;output&gt;</div>
+                    <div class="option"><input type="radio" name="q45" value="C"> C) &lt;calculate&gt;</div>
+                    <div class="option"><input type="radio" name="q45" value="D"> D) &lt;math&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q46">
+                <div class="question-text">46. Which HTML element is used to define a progress bar?</div>
+                <div class="language">একটি প্রোগ্রেস বার সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q46" value="A"> A) &lt;progress&gt;</div>
+                    <div class="option"><input type="radio" name="q46" value="B"> B) &lt;meter&gt;</div>
+                    <div class="option"><input type="radio" name="q46" value="C"> C) &lt;bar&gt;</div>
+                    <div class="option"><input type="radio" name="q46" value="D"> D) &lt;status&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q47">
+                <div class="question-text">47. Which HTML element is used to define a scalar measurement within a known range?</div>
+                <div class="language">একটি পরিচিত রেঞ্জের মধ্যে একটি স্কেলার পরিমাপ সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q47" value="A"> A) &lt;gauge&gt;</div>
+                    <div class="option"><input type="radio" name="q47" value="B"> B) &lt;range&gt;</div>
+                    <div class="option"><input type="radio" name="q47" value="C"> C) &lt;meter&gt;</div>
+                    <div class="option"><input type="radio" name="q47" value="D"> D) &lt;measure&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q48">
+                <div class="question-text">48. Which HTML element is used to define a ruby annotation (for East Asian typography)?</div>
+                <div class="language">একটি রুবি অ্যানোটেশন (পূর্ব এশিয়ান টাইপোগ্রাফির জন্য) সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q48" value="A"> A) &lt;ruby&gt;</div>
+                    <div class="option"><input type="radio" name="q48" value="B"> B) &lt;annotation&gt;</div>
+                    <div class="option"><input type="radio" name="q48" value="C"> C) &lt;eastasian&gt;</div>
+                    <div class="option"><input type="radio" name="q48" value="D"> D) &lt;typography&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q49">
+                <div class="question-text">49. Which HTML element is used to define a date/time?</div>
+                <div class="language">একটি তারিখ/সময় সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q49" value="A"> A) &lt;time&gt;</div>
+                    <div class="option"><input type="radio" name="q49" value="B"> B) &lt;date&gt;</div>
+                    <div class="option"><input type="radio" name="q49" value="C"> C) &lt;datetime&gt;</div>
+                    <div class="option"><input type="radio" name="q49" value="D"> D) &lt;timestamp&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q50">
+                <div class="question-text">50. Which HTML element is used to define a word-break opportunity?</div>
+                <div class="language">একটি ওয়ার্ড-ব্রেক সুযোগ সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q50" value="A"> A) &lt;break&gt;</div>
+                    <div class="option"><input type="radio" name="q50" value="B"> B) &lt;wbr&gt;</div>
+                    <div class="option"><input type="radio" name="q50" value="C"> C) &lt;wordbreak&gt;</div>
+                    <div class="option"><input type="radio" name="q50" value="D"> D) &lt;br&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q51">
+                <div class="question-text">51. Which HTML element is used to draw graphics, on the fly, via scripting?</div>
+                <div class="language">স্ক্রিপ্টিং এর মাধ্যমে তাত্ক্ষণিকভাবে গ্রাফিক্স আঁকার জন্য কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q51" value="A"> A) &lt;graphics&gt;</div>
+                    <div class="option"><input type="radio" name="q51" value="B"> B) &lt;canvas&gt;</div>
+                    <div class="option"><input type="radio" name="q51" value="C"> C) &lt;draw&gt;</div>
+                    <div class="option"><input type="radio" name="q51" value="D"> D) &lt;script&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q52">
+                <div class="question-text">52. Which HTML element is used to define a vector graphic?</div>
+                <div class="language">একটি ভেক্টর গ্রাফিক সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q52" value="A"> A) &lt;vector&gt;</div>
+                    <div class="option"><input type="radio" name="q52" value="B"> B) &lt;svg&gt;</div>
+                    <div class="option"><input type="radio" name="q52" value="C"> C) &lt;graphic&gt;</div>
+                    <div class="option"><input type="radio" name="q52" value="D"> D) &lt;draw&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q53">
+                <div class="question-text">53. Which HTML element is used to define a container for multiple image resources?</div>
+                <div class="language">একাধিক ইমেজ রিসোর্সের জন্য একটি কন্টেইনার সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q53" value="A"> A) &lt;picture&gt;</div>
+                    <div class="option"><input type="radio" name="q53" value="B"> B) &lt;source&gt;</div>
+                    <div class="option"><input type="radio" name="q53" value="C"> C) &lt;image&gt;</div>
+                    <div class="option"><input type="radio" name="q53" value="D"> D) &lt;container&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q54">
+                <div class="question-text">54. Which HTML element is used to define a track for media elements?</div>
+                <div class="language">মিডিয়া এলিমেন্টের জন্য একটি ট্র্যাক সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q54" value="A"> A) &lt;media&gt;</div>
+                    <div class="option"><input type="radio" name="q54" value="B"> B) &lt;track&gt;</div>
+                    <div class="option"><input type="radio" name="q54" value="C"> C) &lt;source&gt;</div>
+                    <div class="option"><input type="radio" name="q54" value="D"> D) &lt;audio&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q55">
+                <div class="question-text">55. Which HTML element is used to define a video or movie?</div>
+                <div class="language">একটি ভিডিও বা মুভি সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q55" value="A"> A) &lt;media&gt;</div>
+                    <div class="option"><input type="radio" name="q55" value="B"> B) &lt;video&gt;</div>
+                    <div class="option"><input type="radio" name="q55" value="C"> C) &lt;movie&gt;</div>
+                    <div class="option"><input type="radio" name="q55" value="D"> D) &lt;play&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q56">
+                <div class="question-text">56. Which HTML element is used to define sound content?</div>
+                <div class="language">সাউন্ড কন্টেন্ট সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q56" value="A"> A) &lt;sound&gt;</div>
+                    <div class="option"><input type="radio" name="q56" value="B"> B) &lt;audio&gt;</div>
+                    <div class="option"><input type="radio" name="q56" value="C"> C) &lt;music&gt;</div>
+                    <div class="option"><input type="radio" name="q56" value="D"> D) &lt;noise&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q57">
+                <div class="question-text">57. Which HTML element is used to define a source for media elements?</div>
+                <div class="language">মিডিয়া এলিমেন্টের জন্য একটি সোর্স সংজ্ঞায়িত করতে কোন HTML এলिमেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q57" value="A"> A) &lt;src&gt;</div>
+                    <div class="option"><input type="radio" name="q57" value="B"> B) &lt;source&gt;</div>
+                    <div class="option"><input type="radio" name="q57" value="C"> C) &lt;media&gt;</div>
+                    <div class="option"><input type="radio" name="q57" value="D"> D) &lt;origin&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q58">
+                <div class="question-text">58. Which HTML element is used to define embedded content?</div>
+                <div class="language">এমবেডেড কন্টেন্ট সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q58" value="A"> A) &lt;embed&gt;</div>
+                    <div class="option"><input type="radio" name="q58" value="B"> B) &lt;object&gt;</div>
+                    <div class="option"><input type="radio" name="q58" value="C"> C) &lt;include&gt;</div>
+                    <div class="option"><input type="radio" name="q58" value="D"> D) &lt;link&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q59">
+                <div class="question-text">59. Which HTML element is used to define an inline frame?</div>
+                <div class="language">একটি ইনলাইন ফ্রেম সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q59" value="A"> A) &lt;frame&gt;</div>
+                    <div class="option"><input type="radio" name="q59" value="B"> B) &lt;iframe&gt;</div>
+                    <div class="option"><input type="radio" name="q59" value="C"> C) &lt;inline&gt;</div>
+                    <div class="option"><input type="radio" name="q59" value="D"> D) &lt;embed&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+            
+            <div class="question" id="q60">
+                <div class="question-text">60. Which HTML element is used to define a parameter for an object?</div>
+                <div class="language">একটি অবজেক্টের জন্য একটি প্যারামিটার সংজ্ঞায়িত করতে কোন HTML এলিমেন্ট ব্যবহার করা হয়?</div>
+                <div class="options">
+                    <div class="option"><input type="radio" name="q60" value="A"> A) &lt;var&gt;</div>
+                    <div class="option"><input type="radio" name="q60" value="B"> B) &lt;param&gt;</div>
+                    <div class="option"><input type="radio" name="q60" value="C"> C) &lt;argument&gt;</div>
+                    <div class="option"><input type="radio" name="q60" value="D"> D) &lt;value&gt;</div>
+                </div>
+                <div class="result hidden"></div>
+            </div>
+        </div>
+        
+        <button id="submit-btn">Submit Quiz</button>
+    </div>
+    
+    <script>
+        // Show welcome message first, then quiz after 3 seconds
+        window.onload = function() {
+            setTimeout(function() {
+                document.getElementById('welcomeOverlay').style.display = 'none';
+                document.getElementById('quizContent').style.display = 'block';
+            }, 3000); // 3 seconds delay
+            
+            // Correct answers
+            const answers = {
+                q1: "A", q2: "B", q3: "C", q4: "A", q5: "C",
+                q6: "B", q7: "C", q8: "A", q9: "B", q10: "B",
+                q11: "B", q12: "D", q13: "C", q14: "A", q15: "B",
+                q16: "A", q17: "B", q18: "D", q19: "B", q20: "B",
+                q21: "B", q22: "B", q23: "B", q24: "C", q25: "A",
+                q26: "C", q27: "C", q28: "C", q29: "B", q30: "B",
+                q31: "B", q32: "B", q33: "A", q34: "B", q35: "A",
+                q36: "B", q37: "B", q38: "B", q39: "B", q40: "B",
+                q41: "B", q42: "B", q43: "B", q44: "B", q45: "B",
+                q46: "A", q47: "C", q48: "A", q49: "A", q50: "B",
+                q51: "B", q52: "B", q53: "A", q54: "B", q55: "B",
+                q56: "B", q57: "B", q58: "A", q59: "B", q60: "B"
+            };
+            
+            document.getElementById("submit-btn").addEventListener("click", function() {
+                let score = 0;
+                
+                // Check each question
+                for (let i = 1; i <= 60; i++) {
+                    const questionId = "q" + i;
+                    const selectedOption = document.querySelector(`input[name="${questionId}"]:checked`);
+                    const resultDiv = document.querySelector(`#${questionId} .result`);
+                    
+                    if (selectedOption) {
+                        if (selectedOption.value === answers[questionId]) {
+                            score++;
+                            resultDiv.textContent = "Correct!";
+                            resultDiv.className = "result correct";
+                        } else {
+                            resultDiv.textContent = `Incorrect! The correct answer is ${answers[questionId]}`;
+                            resultDiv.className = "result incorrect";
+                        }
+                        resultDiv.classList.remove("hidden");
+                    }
+                }
+                
+                // Calculate percentage
+                const percentage = (score / 60) * 100;
+                
+                // Show final score
+                alert(`You scored ${score} out of 60 (${percentage.toFixed(2)}%)`);
+            });
+        };
+    </script>
+</body>
+</html>
